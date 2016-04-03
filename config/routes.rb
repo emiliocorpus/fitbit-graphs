@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
 
+  get 'user/index'
+
+  get 'user/new'
+
+  get 'user/login'
+
+  get 'user/logout'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
   # You can have the root of your site routed with "root"
   root 'page#home'
+
+  get 'users/:id' => 'page#user'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
