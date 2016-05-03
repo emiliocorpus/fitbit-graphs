@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+html, body {
+	height: 100%;
+}
+.debugger {
+	border: 1px solid red;
+}
+
+.navbar {
+	margin-bottom: 0;
+}

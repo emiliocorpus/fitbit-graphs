@@ -1,17 +1,14 @@
 // Place all the styles related to the Page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.debugger {
-	border: 1px solid red;
+
+.body-container {
+	width: 100%;
+	margin: 0 auto;
+	height:100%;
+	margin-top: 0;
 }
 
-.banner {
-	background-color:#53D8C5;
-	color:white;
-
-}
-
-.intro-paragraph {
-	width: 75%;
-	margin-left:15%;
+.jumbotron {
+	height: 100%;
 }
