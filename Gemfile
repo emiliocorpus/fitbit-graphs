@@ -7,12 +7,9 @@ gem 'rails', '4.2.3'
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -34,16 +31,22 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem "awesome_print", require: "ap"
 
-  gem 'sqlite3'
+  gem "meta_request"
+  	# for rails panel in chrome dev tools
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem "better_errors"
+  	# for errors and full stack trace
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem "pry-rails", group: "development"
+  	# debugger
+  	# use binding.pry in any controller and make rails hit
+  	# that controller by visting the page from your browser
+
+  gem "quiet_assets", group: :development
+
+  gem "gemsurance"
 end
 
 
