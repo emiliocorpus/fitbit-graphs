@@ -7,8 +7,10 @@ class FitbitApiController < ApplicationController
 	  case params[:resource]
 
 		when 'heart';
+		today = Date.today
+		month_ago = today - 30
 
-	  	output = client.heartrate_time_series(start_date:'2016-04-01', period: '30d')
+	  	output = client.heartrate_time_series(start_date: month_ago.strftime, period: '30d')
 	  end
 
 	  render json: output
