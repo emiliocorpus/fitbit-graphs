@@ -31,21 +31,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 group :development, :test do
+  gem "sqlite3"
   gem "awesome_print", require: "ap"
-
   gem "meta_request"
   	# for rails panel in chrome dev tools
-
   gem "better_errors"
   	# for errors and full stack trace
-
   gem "pry-rails", group: "development"
   	# debugger
   	# use binding.pry in any controller and make rails hit
   	# that controller by visting the page from your browser
-
   gem "quiet_assets", group: :development
-
   gem "gemsurance"
 end
 

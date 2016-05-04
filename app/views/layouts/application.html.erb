@@ -8,8 +8,11 @@
 </head>
 <body>
 	<%= render 'partials/navbar' %>
-	<%= yield %>
+	<div class="body-container">
+		<div class="jumbotron">
+			<%= yield %>
+		</div>
+	</div>
 	<%= render 'partials/footer' %>
-
 </body>
 </html>
