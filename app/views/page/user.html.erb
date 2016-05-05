@@ -1,15 +1,9 @@
-<% user_tmz = current_user.identity_for("fitbit_oauth2").timezone %>
-<% month_ago = Date.today - 30 %>
-<% month_ago = month_ago.strftime %>
-<% client = current_user.fitbit_client %>
+<div class="text-center graphs-page">
+	<h1>Welcome back <%= current_user.fitbit_client.user_info['user']['fullName'].downcase.capitalize%></h1>
 
-<div class="container text-center">
-	<h1>Welcome back <%= client.user_info['user']['fullName'].downcase.capitalize%></h1>
-
-	<div>
-		<%= client.heartrate_time_series(start_date: month_ago, period: '30d') %>
+	<div class="data" >
+		<%= @output %>
 	</div>
-
 </div>
 
 

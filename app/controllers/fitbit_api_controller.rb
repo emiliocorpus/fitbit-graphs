@@ -3,7 +3,6 @@ class FitbitApiController < ApplicationController
 	before_filter :authenticate_user!
 
 	def data_request
-		pry
 		client = current_user.fitbit_client
 		today = Date.today
 		month_ago = today - 30

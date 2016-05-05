@@ -21,10 +21,12 @@
 
         </li>
         <li>
-           <% if devise_mapping.omniauthable? %>
+           <% if devise_mapping.omniauthable? && !current_user %>
             <% resource_class.omniauth_providers.each do |provider| %>
-              <%= link_to "Login", omniauth_authorize_path(resource_name, provider) %>
-            <% end %>
+                <%= link_to "Login", omniauth_authorize_path(resource_name, provider) %>
+              <% end %>
+            <% else %>
+                <%= link_to "Logout", destroy_user_session_path, :method => 'delete' %>
           <% end %>
 
 
