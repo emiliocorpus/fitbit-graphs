@@ -15,6 +15,7 @@ gem 'devise'
 gem 'fitgem_oauth2'
 gem 'omniauth-fitbit-oauth2'
 gem 'figaro'
+gem 'chartkick'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,8 +1,33 @@
-<div class="text-center graphs-page">
-	<h1>Welcome back <%= current_user.fitbit_client.user_info['user']['fullName'].downcase.capitalize%></h1>
+<script src="assets/Chart.js"></script>
 
+
+<div class="text-center graphs-page">
+<!-- 	<h1>Welcome back current_user.fitbit_client.user_info['user']['fullName'].downcase.capitalize</h1>
+ -->
 	<div class="data" >
-		<%= @output %>
+		<canvas id="myChart" width="200" height="200"></canvas>
+		<script>
+			var ctx = document.getElementById("myChart");
+		    var myChart = new Chart(ctx, {
+		        type: 'bar',
+		        data: {
+		            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+		            datasets: [{
+		                label: '# of Votes',
+		                data: [120, 45,55,63,77,80]
+		            }]
+		        },
+		        options: {
+		            scales: {
+		                yAxes: [{
+		                    ticks: {
+		                        beginAtZero:false
+		                    }
+		                }]
+		            }
+		        }
+		    });
+		</script>
 	</div>
 </div>
 
