@@ -1,7 +1,8 @@
 class PageController < ApplicationController
 
   def home
-  	if current_user 
+  	if current_user
+      p params
   		redirect_to action: 'user', id: current_user.id
   	else
   		p "==="*50
@@ -10,15 +11,63 @@ class PageController < ApplicationController
 
   def user
   	if current_user
-        # today = Date.today
-        # month_ago = today - 30
-        # # output = current_user.fitbit_client.heartrate_time_series(start_date: month_ago.strftime, period: '30d')
-        # @output = output["activities-heart"]
+        today = Date.today
+        month_ago = today - 30
+        output = current_user.fitbit_client.heartrate_time_series(start_date: month_ago.strftime, period: '30d')
+        @data_set = parse_fitbit(output["activities-heart"])
   	else
   		redirect_to root_path
   	end
   end
+
+  private
+  def parse_fitbit(data)
+    labels = []
+    values = []
+    data.each do |item|
+      labels.push(item['dateTime'])
+      if item['value']['heartRateZones'].first['caloriesOut'] === nil
+        values.push(0)
+      else
+        values.push(item['value']['heartRateZones'].first['caloriesOut'])
+      end
+
+    end
+    new_data = {
+      labels: labels,
+      values: values
+    }
+  end
+
 end
+
+
+# [{"dateTime"=>"2016-03-08",
+#   "value"=>
+#    {"customHeartRateZones"=>[],
+#     "heartRateZones"=>
+#      [{"caloriesOut"=>2158.8759,
+#        "max"=>97,
+#        "min"=>30,
+#        "minutes"=>1079,
+#        "name"=>"Out of Range"},
+#       {"caloriesOut"=>856.154,
+#        "max"=>135,
+#        "min"=>97,
+#        "minutes"=>90,
+#        "name"=>"Fat Burn"},
+#       {"caloriesOut"=>293.95465,
+#        "max"=>164,
+#        "min"=>135,
+#        "minutes"=>22,
+#        "name"=>"Cardio"},
+#       {"caloriesOut"=>0, "max"=>220, "min"=>164, "minutes"=>0, "name"=>"Peak"}],
+#     "restingHeartRate"=>49}},
+
+# .....
+
+
+# ]
 
 
 
