@@ -7,13 +7,16 @@
 		<canvas id="myChart"></canvas>
 		<script>
 			var ctx = document.getElementById("myChart");
-
-			var myJSArray = [<%= @data_set[:labels].map(&:to_s).join(", ") %>];
+			var jsLabels = []
+			for (var i = 1; i <= <%= @data_set[:days] %>; i++) {
+				jsLabels.push("Day " + i.toString())
+			}
+			debugger
 			var data = {
-			    labels: myJSArray,
+			    labels: jsLabels,
 			    datasets: [
 			        {
-			            label: "Heartrate",
+			            label: "calories",
 			            fill: false,
 			            lineTension: 0.1,
 			            backgroundColor: "rgba(75,192,192,0.4)",
@@ -31,13 +34,18 @@
 			            pointHoverBorderWidth: 2,
 			            pointRadius: 1,
 			            pointHitRadius: 10,
-			            data: <%= @data_set[:values] %>,
+			            data: <%= @data_set[:values] %>
 			        }
 			    ]
 			};
 		    var myChart = new Chart(ctx, {
 		        type: 'line',
-		        data:  data
+		        data:  data,
+		        options: {
+		                xAxes: [{
+		                    display: false
+		                }]
+		            }
 		    });
 		</script>
 </div>

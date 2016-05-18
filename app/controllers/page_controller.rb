@@ -12,8 +12,8 @@ class PageController < ApplicationController
   def user
   	if current_user
         today = Date.today
-        month_ago = today - 30
-        output = current_user.fitbit_client.heartrate_time_series(start_date: month_ago.strftime, period: '30d')
+        output = current_user.fitbit_client.heartrate_time_series(start_date: today, period: '30d')
+
         @data_set = parse_fitbit(output["activities-heart"])
   	else
   		redirect_to root_path
@@ -33,10 +33,16 @@ class PageController < ApplicationController
       end
 
     end
+
     new_data = {
-      labels: labels,
-      values: values
+      values: values,
+      days: 30
     }
+  end
+
+
+  def value_parser(value)
+    # function to format the date time to fixnum
   end
 
 end
