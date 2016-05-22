@@ -26,6 +26,8 @@
 
 div.graphs-page {
 	margin-top: 0;
+	width:95%;
+	margin:0 auto;
 }
 
 div.graphs-page h1 {
@@ -40,8 +42,7 @@ div.data {
 }
 
 canvas{
-        width: 100% !important;
-        max-width: 500px;
-        height:20px;
+    width: 100% !important;
+    height:50%;
  }
 

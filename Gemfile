@@ -12,11 +12,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
-gem 'fitgem_oauth2'
+gem 'fitgem_oauth2', ' ~> 1.0.4'
 gem 'omniauth-fitbit-oauth2'
 gem 'figaro'
 gem 'chartkick'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'oauth2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -29,6 +30,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 group :development, :test do
   gem 'httparty'
+  gem 'binding_of_caller'
   gem "sqlite3"
   gem "awesome_print", require: "ap"
   gem "meta_request"

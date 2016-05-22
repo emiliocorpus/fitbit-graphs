@@ -11,10 +11,15 @@ class PageController < ApplicationController
 
   def user
   	if current_user
-        today = Date.today
-        output = current_user.fitbit_client.heartrate_time_series(start_date: today, period: '30d')
+        user_data = current_user.fitbit_client
+        output = user_data.heartrate_time_series(start_date: Date.today, period: '30d').body
+        raw_data = parse_faraday(output)
+        binding.pry
+        data = parse_fitbit(raw_data["activities-heart"])
 
-        @data_set = parse_fitbit(output["activities-heart"])
+        # FOR ERROR CHECKING MUST REFRESH TOKEN, TRY REFRESH TOKEN MESSAGE
+
+        @data_set = data
   	else
   		redirect_to root_path
   	end
@@ -38,6 +43,10 @@ class PageController < ApplicationController
       values: values,
       days: 30
     }
+  end
+
+  def parse_faraday(body)
+    JSON.parse(body)
   end
 
 

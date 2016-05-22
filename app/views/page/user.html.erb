@@ -1,9 +1,13 @@
 <script src="/assets/Chart.js"></script>
 
 
-<div class="text-center graphs-page">
-	<h1>Welcome back <%= current_user.fitbit_client.user_info['user']['fullName'].downcase.capitalize %></h1>
+<div class="text-center graphs-page debugger">
 
+		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		  <a role="button" class="active btn btn-default">Calories</a>
+		  <a role="button" class="btn btn-default">Heart Rate</a>
+		  <a role="button" class="btn btn-default">Steps</a>
+		</div>
 		<canvas id="myChart"></canvas>
 		<script>
 			var ctx = document.getElementById("myChart");
@@ -39,12 +43,23 @@
 			};
 		    var myChart = new Chart(ctx, {
 		        type: 'line',
-		        data:  data,
-		        options: {
-		                xAxes: [{
-		                    display: false
-		                }]
-		            }
+		        data:  data
+		     //    options: {
+		     //    	scales: {
+		     //    	    yAxes: [{
+		     //    	      scaleLabel: {
+		     //    	        display: true,
+		     //    	        labelString: 'Calories'
+		     //    	      }
+		     //    	    }],
+		     //    	    xAxes: [{
+		     //    	      scaleLabel: {
+		     //    	        display: true,
+		     //    	        labelString: 'Time(days)'
+		     //    	      }
+		     //    	    }]
+		     //        }
+		    	// }}
 		    });
 		</script>
 </div>
