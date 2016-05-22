@@ -4,9 +4,9 @@
 <div class="text-center graphs-page debugger">
 
 		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-		  <a role="button" class="active btn btn-default">Calories</a>
-		  <a role="button" class="btn btn-default">Heart Rate</a>
-		  <a role="button" class="btn btn-default">Steps</a>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"active btn btn-default"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-default"%>
 		</div>
 		<canvas id="myChart"></canvas>
 		<script>

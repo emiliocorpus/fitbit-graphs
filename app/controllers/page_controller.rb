@@ -11,92 +11,53 @@ class PageController < ApplicationController
 
   def user
   	if current_user
-        user_data = current_user.fitbit_client
-        output = user_data.heartrate_time_series(start_date: Date.today, period: '30d').body
-        raw_data = parse_faraday(output)
-        binding.pry
-        data = parse_fitbit(raw_data["activities-heart"])
-
-        # FOR ERROR CHECKING MUST REFRESH TOKEN, TRY REFRESH TOKEN MESSAGE
-
-        @data_set = data
+        
+        new_data = parse_faraday(handle_graph(params['request']))
+        @data_set = parse_fitbit(new_data)
   	else
   		redirect_to root_path
   	end
   end
 
+  # FOR ERROR CHECKING MUST REFRESH TOKEN, TRY REFRESH TOKEN MESSAGE
   private
   def parse_fitbit(data)
     labels = []
     values = []
-    data.each do |item|
+    Hash[*data.first].values.first.each do |item|
       labels.push(item['dateTime'])
-      if item['value']['heartRateZones'].first['caloriesOut'] === nil
+      if item['value'] === nil
         values.push(0)
       else
-        values.push(item['value']['heartRateZones'].first['caloriesOut'])
+        values.push(item['value'].to_i)
       end
-
     end
-
     new_data = {
       values: values,
       days: 30
     }
   end
 
-  def parse_faraday(body)
-    JSON.parse(body)
+  def handle_graph(param)
+    case param
+    when 'calories'
+      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+    when 'heart_rate'
+      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+    when 'steps'
+      data = current_user.fitbit_client.activity_time_series(resource: 'steps', start_date: Date.today, period: '30d')
+    when nil
+      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+    end
+    data
   end
 
 
-  def value_parser(value)
-    # function to format the date time to fixnum
+  # activity_time_series(resource: nil, start_date: nil, period: '30d')
+
+  def parse_faraday(response)
+    JSON.parse(response.body)
   end
+
 
 end
-
-
-# [{"dateTime"=>"2016-03-08",
-#   "value"=>
-#    {"customHeartRateZones"=>[],
-#     "heartRateZones"=>
-#      [{"caloriesOut"=>2158.8759,
-#        "max"=>97,
-#        "min"=>30,
-#        "minutes"=>1079,
-#        "name"=>"Out of Range"},
-#       {"caloriesOut"=>856.154,
-#        "max"=>135,
-#        "min"=>97,
-#        "minutes"=>90,
-#        "name"=>"Fat Burn"},
-#       {"caloriesOut"=>293.95465,
-#        "max"=>164,
-#        "min"=>135,
-#        "minutes"=>22,
-#        "name"=>"Cardio"},
-#       {"caloriesOut"=>0, "max"=>220, "min"=>164, "minutes"=>0, "name"=>"Peak"}],
-#     "restingHeartRate"=>49}},
-
-# .....
-
-
-# ]
-
-
-
-
-
-
-
-# "activities-heart" =>
-#   [{"dateTime"=>"2016-03-06",
-#       "value"=>
-#        {"customHeartRateZones"=>[],
-#         "heartRateZones"=>
-#          [{"caloriesOut"=>2219.94348, "max"=>97, "min"=>30, "minutes"=>1204, "name"=>"Out of Range"},
-#           {"caloriesOut"=>214.32536, "max"=>135, "min"=>97, "minutes"=>24, "name"=>"Fat Burn"},
-#           {"caloriesOut"=>0, "max"=>164, "min"=>135, "minutes"=>0, "name"=>"Cardio"},
-#           {"caloriesOut"=>0, "max"=>220, "min"=>164, "minutes"=>0, "name"=>"Peak"}],
-#         "restingHeartRate"=>48}},
