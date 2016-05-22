@@ -11,7 +11,6 @@ class PageController < ApplicationController
 
   def user
   	if current_user
-        
         new_data = parse_faraday(handle_graph(params['request']))
         @data_set = parse_fitbit(new_data)
   	else
@@ -51,9 +50,6 @@ class PageController < ApplicationController
     end
     data
   end
-
-
-  # activity_time_series(resource: nil, start_date: nil, period: '30d')
 
   def parse_faraday(response)
     JSON.parse(response.body)
