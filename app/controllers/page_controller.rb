@@ -11,8 +11,13 @@ class PageController < ApplicationController
 
   def user
   	if current_user
-        new_data = parse_faraday(handle_graph(params['request']))
+      new_data = parse_faraday(handle_graph(params['request']))
+      if new_data.has_key? 'errors'
+        sign_out current_user
+        redirect_to root_path
+      else
         @data_set = parse_fitbit(new_data)
+      end
   	else
   		redirect_to root_path
   	end
