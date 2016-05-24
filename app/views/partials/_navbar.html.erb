@@ -1,5 +1,10 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+<%if current_user %>
+  <% url = current_user.fitbit_client.user_info %>
+  <% new_url = JSON.parse(url.body) %>
+  <% pic = new_url["user"]["avatar"] %>
+<%end %>
+
+<nav class="navbar navbar-inverse" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -14,26 +19,33 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active">
-          
-          <%= link_to "Home", root_path %>
 
-
-        </li>
-        <li>
+            <%if current_user %>
+          <li class="welcome-nav text-center">
+            Hello Emilio! <%= image_tag pic, class: 'profile-pic br' %>
+          </li>
+          <%end %>
+          <li>
+            <%= link_to "Home", root_path %>
+          </li>
+        
            <% if devise_mapping.omniauthable? && !current_user %>
             <% resource_class.omniauth_providers.each do |provider| %>
+            <li>
                 <%= link_to "Login", omniauth_authorize_path(resource_name, provider) %>
+            </li>
               <% end %>
             <% else %>
+            <li>
+              <%= link_to "About", about_path %>
+            </li>
+
+            <li>
                 <%= link_to "Logout", destroy_user_session_path, :method => 'delete' %>
           <% end %>
-
-
-        </li>
+          </li>
       </ul>
      
       
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
 </nav>

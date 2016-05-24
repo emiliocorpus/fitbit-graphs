@@ -9,13 +9,12 @@
 
 </head>
 <body>
-	<%= render 'partials/navbar' %>
-	<div class="body-container debugger">
-		<div class="jumbotron">
-			<%= yield %>
-	
+	<div class="wrap">
+		<%= render 'partials/navbar' %>
+		<div class="body-container">
+				<%= yield %>
 		</div>
 	</div>
-	<%= render 'partials/footer' %>
+		<%= render 'partials/footer' %>
 </body>
 </html>

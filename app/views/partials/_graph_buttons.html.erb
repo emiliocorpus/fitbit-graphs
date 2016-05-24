@@ -1,0 +1,20 @@
+<%= binding.pry %>
+
+<%case selected %>
+		<%when 'calories'  %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"active btn btn-default"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-default"%>
+		<% when 'heart_rate' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"active btn btn-default"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-default"%>
+		<% when 'steps' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"active btn btn-default"%>
+		<% else %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"active btn btn-default"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-default"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-default"%>
+		<% end %>

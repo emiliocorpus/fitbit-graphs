@@ -1,67 +1,80 @@
+<% if @data_set[:selected] === nil %>
+	<% label = 'calories' %>
+<% else  %>
+	<% label = @data_set[:selected] %>
+<% end %>
+
 <script src="/assets/Chart.js"></script>
+<div class="text-center graphs-page">
+	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		<%case @data_set[:selected]  %>
+		<%when 'calories'  %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button', :class =>"disabled btn btn-info"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+		<% when 'heart_rate' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"disabled btn btn-info"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+		<% when 'steps' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"disabled btn btn-info"%>
+		<% else %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"disabled btn btn-info"%>
+			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+		<% end %>
+	</div>
+	<canvas id="myChart"></canvas>
+	<script>
+		var ctx = document.getElementById("myChart");
+		var jsLabels = []
+		for (var i = 1; i <= <%= @data_set[:days] %>; i++) {
+			jsLabels.push(i.toString())
+		}
+		var data = {
+		    labels: jsLabels,
+		    datasets: [
+		        {
 
-
-<div class="text-center graphs-page debugger">
-
-		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"active btn btn-default"%>
-			<%= link_to 'Heart Rate', {:controller => 'page', :action => 'user', :request => 'heart_rate'}, :role=>'button',:class =>"btn btn-default"%>
-			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-default"%>
-		</div>
-		<canvas id="myChart"></canvas>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var jsLabels = []
-			for (var i = 1; i <= <%= @data_set[:days] %>; i++) {
-				jsLabels.push("Day " + i.toString())
-			}
-			var data = {
-			    labels: jsLabels,
-			    datasets: [
-			        {
-			            label: "calories",
-			            fill: false,
-			            lineTension: 0.1,
-			            backgroundColor: "rgba(75,192,192,0.4)",
-			            borderColor: "rgba(75,192,192,1)",
-			            borderCapStyle: 'butt',
-			            borderDash: [],
-			            borderDashOffset: 0.0,
-			            borderJoinStyle: 'miter',
-			            pointBorderColor: "rgba(75,192,192,1)",
-			            pointBackgroundColor: "#fff",
-			            pointBorderWidth: 1,
-			            pointHoverRadius: 5,
-			            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-			            pointHoverBorderColor: "rgba(220,220,220,1)",
-			            pointHoverBorderWidth: 2,
-			            pointRadius: 1,
-			            pointHitRadius: 10,
-			            data: <%= @data_set[:values] %>
-			        }
-			    ]
-			};
-		    var myChart = new Chart(ctx, {
-		        type: 'line',
-		        data:  data
-		     //    options: {
-		     //    	scales: {
-		     //    	    yAxes: [{
-		     //    	      scaleLabel: {
-		     //    	        display: true,
-		     //    	        labelString: 'Calories'
-		     //    	      }
-		     //    	    }],
-		     //    	    xAxes: [{
-		     //    	      scaleLabel: {
-		     //    	        display: true,
-		     //    	        labelString: 'Time(days)'
-		     //    	      }
-		     //    	    }]
-		     //        }
-		    	// }}
-		    });
-		</script>
+		            label: "<%= label %>",
+		            fill: false,
+		            lineTension: 0.1,
+		            backgroundColor: "rgba(75,192,192,0.4)",
+		            borderColor: "rgba(75,192,192,1)",
+		            borderCapStyle: 'butt',
+		            borderDash: [],
+		            borderDashOffset: 0.0,
+		            borderJoinStyle: 'miter',
+		            pointBorderColor: "rgba(75,192,192,1)",
+		            pointBackgroundColor: "#fff",
+		            pointBorderWidth: 1,
+		            pointHoverRadius: 10,
+		            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+		            pointHoverBorderColor: "rgba(220,220,220,1)",
+		            pointHoverBorderWidth: 2,
+		            pointRadius: 1,
+		            pointHitRadius: 10,
+		            data: <%= @data_set[:values] %>
+		        }
+		    ]
+		};
+	    var myChart = new Chart(ctx, {
+	        type: 'line',
+	        data:  data,
+	        options: {
+	        	scales: {
+	        	    xAxes: [{
+	        	      scaleLabel: {
+	        	        display: true,
+	        	        labelString: 'Time (days)'
+	        	      }
+	        	    }]
+	            }
+	    	}}
+	    );
+	</script>
 </div>
 
 
