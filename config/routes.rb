@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'about/' => 'page#about'
 
+  get 'user/:id/summary' => 'page#summary'
+
   get 'fitbit/:resource/:date.json' => 'fitbit_api#data_request', as: 'fitbit_api_request'
   
 end

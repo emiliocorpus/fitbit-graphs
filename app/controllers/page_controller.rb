@@ -2,31 +2,33 @@ class PageController < ApplicationController
 
   def home
   	if current_user
-      p params
   		redirect_to action: 'user', id: current_user.id
-  	else
-  		p "==="*50
   	end
   end
 
   def user
-  	if current_user
+  	if current_user.id === params[:id].to_i
       requested_data = parse_faraday(handle_graph(params['request']))
       if requested_data.has_key? 'errors'
         sign_out current_user
         redirect_to root_path
       else
-        @data_set = parse_fitbit(requested_data)
-        @data_set[:selected] = params['request']
+        if params['request'] === 'badges'
+          @data_set = {badges: requested_data, selected: params['request']} 
+        else
+          @data_set = parse_fitbit(requested_data)
+          @data_set[:selected] = params['request']
+        end
       end
   	else
   		redirect_to root_path
   	end
   end
 
+  def summary
+  end
 
   def about
-
   end
 
   private
@@ -52,8 +54,8 @@ class PageController < ApplicationController
     case param
     when 'calories'
       data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
-    when 'heart_rate'
-      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+    when 'badges'
+      data = current_user.fitbit_client.badges
     when 'steps'
       data = current_user.fitbit_client.activity_time_series(resource: 'steps', start_date: Date.today, period: '30d')
     when nil
