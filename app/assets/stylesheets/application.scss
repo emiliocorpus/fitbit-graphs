@@ -16,7 +16,10 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
-
+* {
+	margin: 0;
+	padding: 0;
+}
 html, body {
 	height: 100%;
 	background-color:#EEEEEE;
