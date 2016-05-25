@@ -28,11 +28,11 @@
 	</div>
 	<%if label === 'badges' %>
 		<div class="badges">
-		<% @data_set[:badges]["badges"].each do |badge| %>
-			<%= image_tag badge['image100px'] %>
-		<% end %>
-	<% else %>
+			<% @data_set[:badges]["badges"].each do |badge| %>
+				<%= image_tag badge['image100px'], class: 'badge-pic', title: badge['name'] %>
+			<% end %>
 		</div>
+	<% else %>
 		<canvas id="myChart"></canvas>
 		<script>
 			var ctx = document.getElementById("myChart");

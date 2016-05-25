@@ -78,5 +78,15 @@ div.data {
  	margin-top:5%;
  }
 
+.badge-pic {
+	width:70px;
+}
+
+
+.badge-pic:hover .imgDescription {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 
