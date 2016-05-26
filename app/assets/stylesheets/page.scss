@@ -78,9 +78,59 @@ div.data {
  	margin-top:5%;
  }
 
-.badge-pic {
+.lightbox-trigger {
+ 	margin:3%;
 	width:70px;
 }
 
+.lightbox-trigger:hover {
+ 	margin:3%;
+	width:75px;
+}
+
+#lightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+    display:none;
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+    background: rgba(0,0,0,.7);
+    text-align:center;
+}
+
+#lightbox-content {
+    margin:0 auto;
+	margin-top: 150px;
+	background:white;
+	width:375px;
+	border-radius:50px;
+}
+
+#content {
+	height:100%;
+	padding-bottom:5%;
+	margin:0 auto;
+	text-align:center;
+}
+
+#close-lightbox {
+    color:red; 
+    font-size:20px; 
+	margin-right:20px;
+}
+
+#remove-button-container{
+	text-align:right;
+}
+
+.badge-label {
+	font-size:14px;
+	font-variant:all-caps;
+}
+
+#lightbox-content img {
+	margin-bottom:3%;
+}
 
 

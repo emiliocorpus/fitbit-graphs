@@ -27,10 +27,20 @@
 		<% end %>
 	</div>
 	<%if label === 'badges' %>
+		<script src="/assets/lightbox.js" type="text/javascript" charset="utf-8" async defer></script>
 		<div class="badges">
 			<% @data_set[:badges]["badges"].each do |badge| %>
-				<%= image_tag badge['image100px'], class: 'badge-pic', title: badge['name'] %>
+				<%= image_tag badge['image100px'], class: 'lightbox-trigger', title: badge['name'], description: badge['description'], last_earned: Date.parse(badge['dateTime']).strftime('%A, %B %e, %Y'), times_achieved: badge['timesAchieved'] %>
 			<% end %>
+		</div>
+		<div id="lightbox">
+			<div id="lightbox-content">
+				<div id="remove-button-container">
+			    	<span class="glyphicon glyphicon-remove-circle" aria-hidden="true" id="close-lightbox"></span>
+			    </div>
+			    <div id="content">
+			    </div>
+			</div>
 		</div>
 	<% else %>
 		<canvas id="myChart"></canvas>
