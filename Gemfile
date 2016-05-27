@@ -31,7 +31,6 @@ gem 'oauth2'
 group :development, :test do
   gem 'httparty'
   gem 'binding_of_caller'
-  gem "sqlite3"
   gem "awesome_print", require: "ap"
   gem "meta_request"
   	# for rails panel in chrome dev tools
