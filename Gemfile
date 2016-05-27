@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.2.3'
-gem 'sqlite3'
+gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # gem 'coffee-rails', '~> 4.1.0'
@@ -31,7 +31,7 @@ gem 'oauth2'
 group :development, :test do
   gem 'httparty'
   gem 'binding_of_caller'
-  gem "sqlite3"
+  gem "pg"
   gem "awesome_print", require: "ap"
   gem "meta_request"
   	# for rails panel in chrome dev tools
