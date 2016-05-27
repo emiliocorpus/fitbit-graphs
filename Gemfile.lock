@@ -135,7 +135,6 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    pg (0.18.3)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -229,7 +228,6 @@ DEPENDENCIES
   meta_request
   oauth2
   omniauth-fitbit-oauth2
-  pg
   pry-rails
   quiet_assets
   rails (= 4.2.3)
