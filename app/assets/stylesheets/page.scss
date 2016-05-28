@@ -52,27 +52,27 @@ div.data {
 }
 #myChart{
     width: 100% !important;
-    height:60% !important;
+    height:50% !important;
  }
 
- img.br {
- 	border-radius:100px;
- 	height:100%;
- }
+img.br {
+	border-radius:100px;
+	height:100%;
+}
 
- img.profile-pic {
- 	height:50px;
- 	margin-right:10px;
- 	padding-left:10px;
- }
+img.profile-pic {
+	height:50px;
+	margin-right:10px;
+	padding-left:10px;
+}
 
- .user-info {
- 	padding-bottom:5%;
- }
+.user-info {
+	padding-bottom:5%;
+}
 
- .welcome-nav {
- 	color:white;
- }
+.welcome-nav {
+	color:white;
+}
 
  .badges {
  	margin-top:5%;
@@ -137,6 +137,10 @@ div.data {
 @media (device-width: 320px) {
 	#lightbox-content {
 		width:100%;
+	}
+
+	#lightbox-content {
+		height:800px;
 	}
 }
 

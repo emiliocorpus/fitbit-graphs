@@ -43,9 +43,13 @@
 			</div>
 		</div>
 	<% else %>
-		<canvas id="myChart"></canvas>
+		<canvas id="myChart" class="debugger"></canvas>
 		<script>
 			var ctx = document.getElementById("myChart");
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			 // some code..
+			 ctx.height = 400
+			}
 			var jsLabels = []
 			for (var i = 1; i <= <%= @data_set[:days] %>; i++) {
 				jsLabels.push(i.toString())
@@ -76,20 +80,41 @@
 			        }
 			    ]
 			};
-		    var myChart = new Chart(ctx, {
-		        type: 'line',
-		        data:  data,
-		        options: {
-		        	scales: {
-		        	    xAxes: [{
-		        	      scaleLabel: {
-		        	        display: true,
-		        	        labelString: 'Time (days)'
-		        	      }
-		        	    }]
-		            }
-		    	}}
-		    );
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				 ctx.height = 400
+				 var myChart = new Chart(ctx, {
+				 	 responsive: true,
+				 	 showXLabels:2,
+				     type: 'line',
+				     data:  data,
+				     options: {
+			        	scales: {
+			        	    xAxes: [{
+			        	      scaleLabel: {
+			        	        display: true,
+			        	        labelString: 'Day'
+			        	      }
+			        	    }]
+			            }
+			    	}
+				});
+			}
+			else {
+			    var myChart = new Chart(ctx, {
+			        type: 'line',
+			        data:  data,
+			        options: {
+			        	scales: {
+			        	    xAxes: [{
+			        	      scaleLabel: {
+			        	        display: true,
+			        	        labelString: 'Day'
+			        	      }
+			        	    }]
+			            }
+			    	}}
+			    );
+			}
 		</script>
 	<% end %>
 </div>
