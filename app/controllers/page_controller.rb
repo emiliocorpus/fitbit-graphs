@@ -45,8 +45,6 @@ class PageController < ApplicationController
     @data
   end
 
-
-
   def about
   end
 
