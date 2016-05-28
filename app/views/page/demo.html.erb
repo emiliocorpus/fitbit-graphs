@@ -1,0 +1,123 @@
+<% if @data[:selected] === nil %>
+	<% label = 'calories' %>
+<% else  %>
+	<% label = @data[:selected] %>
+<% end %>
+
+<script src="/assets/Chart.js"></script>
+<div class="text-center graphs-page">
+	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		<%case @data[:selected]  %>
+		<%when 'calories'  %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button', :class =>"disabled btn btn-info"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+		<% when 'badges' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"disabled btn btn-info"%>
+		<% when 'steps' %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"disabled btn btn-info"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+		<% else %>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"disabled btn btn-info"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+		<% end %>
+	</div>
+	<%if label === 'badges' %>
+		<script src="/assets/lightbox.js" type="text/javascript" charset="utf-8" async defer></script>
+		<div class="badges">
+			<% @data[:badges].each do |badge| %>
+				<%= image_tag badge['image100px'], class: 'lightbox-trigger', title: badge['name'], description: badge['description'], last_earned: Date.parse(badge['dateTime']).strftime('%A, %B %e, %Y'), times_achieved: badge['timesAchieved'] %>
+			<% end %>
+		</div>
+		<div id="lightbox">
+			<div id="lightbox-content">
+				<div id="remove-button-container">
+			    	<span class="glyphicon glyphicon-remove-circle" aria-hidden="true" id="close-lightbox"></span>
+			    </div>
+			    <div id="content">
+			    </div>
+			</div>
+		</div>
+	<% else %>
+		<canvas id="myChart" class="debugger"></canvas>
+		<script>
+			var ctx = document.getElementById("myChart");
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			 // some code..
+			 ctx.height = 400
+			}
+			var jsLabels = []
+			for (var i = 1; i <= 30; i++) {
+				jsLabels.push(i.toString())
+			}
+			var data = {
+			    labels: jsLabels,
+			    datasets: [
+			        {
+			            label: "<%= label %>",
+			            fill: false,
+			            lineTension: 0.1,
+			            backgroundColor: "rgba(75,192,192,0.4)",
+			            borderColor: "rgba(75,192,192,1)",
+			            borderCapStyle: 'butt',
+			            borderDash: [],
+			            borderDashOffset: 0.0,
+			            borderJoinStyle: 'miter',
+			            pointBorderColor: "rgba(75,192,192,1)",
+			            pointBackgroundColor: "#fff",
+			            pointBorderWidth: 1,
+			            pointHoverRadius: 10,
+			            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+			            pointHoverBorderColor: "rgba(220,220,220,1)",
+			            pointHoverBorderWidth: 2,
+			            pointRadius: 1,
+			            pointHitRadius: 10,
+			            data: <%= @data[:values] %>
+			        }
+			    ]
+			};
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				 ctx.height = 400
+				 var myChart = new Chart(ctx, {
+				 	 responsive: true,
+				 	 showXLabels:2,
+				     type: 'line',
+				     data:  data,
+				     options: {
+			        	scales: {
+			        	    xAxes: [{
+			        	      scaleLabel: {
+			        	        display: true,
+			        	        labelString: 'Day'
+			        	      }
+			        	    }]
+			            }
+			    	}
+				});
+			}
+			else {
+			    var myChart = new Chart(ctx, {
+			        type: 'line',
+			        data:  data,
+			        options: {
+			        	scales: {
+			        	    xAxes: [{
+			        	      scaleLabel: {
+			        	        display: true,
+			        	        labelString: 'Day'
+			        	      }
+			        	    }]
+			            }
+			    	}}
+			    );
+			}
+		</script>
+	<% end %>
+</div>
+
+
+
