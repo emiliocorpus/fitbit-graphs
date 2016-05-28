@@ -18,6 +18,7 @@ gem 'figaro'
 gem 'chartkick'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'oauth2'
+gem 'rails_12factor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
