@@ -10,7 +10,7 @@ class PageController < ApplicationController
   	if current_user.id === params[:id].to_i
       p params['request']
       # requested_data = parse_faraday(handle_graph(params['request']))
-      request_data = handle_graph(params['request'])
+      requested_data = handle_graph(params['request'])
       if requested_data.has_key? 'errors'
         sign_out current_user
         redirect_to root_path
