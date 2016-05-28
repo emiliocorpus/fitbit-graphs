@@ -26,8 +26,26 @@ class PageController < ApplicationController
   	end
   end
 
-  def summary
+  def demo
+    demo = Demo.first
+    case params['request']
+    when 'calories'
+      @data = {:selected => 'calories',
+              :values => demo.data['calories']}
+    when 'steps'
+      @data = {:selected => 'steps',
+              :values => demo.data['steps']}
+    when 'badges'
+      @data = {:selected => 'badges',
+              :badges => demo.data['badges']}
+    else
+      @data = {:selected => 'calories',
+              :values => demo.data['calories']}
+    end
+    @data
   end
+
+
 
   def about
   end
