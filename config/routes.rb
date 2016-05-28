@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   get 'fitbit/:resource/:date.json' => 'fitbit_api#data_request', as: 'fitbit_api_request'
   
+  get 'demo/' => 'page#demo'
+
 end

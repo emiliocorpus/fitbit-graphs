@@ -7,7 +7,7 @@ class PageController < ApplicationController
   end
 
   def user
-  	if current_user.id === params[:id].to_i
+  	if current_user && current_user.id === params[:id].to_i
       requested_data = parse_faraday(handle_graph(params['request']))
       if requested_data.has_key? 'errors'
         sign_out current_user
@@ -16,6 +16,7 @@ class PageController < ApplicationController
         if params['request'] === 'badges'
           @data_set = {badges: requested_data, selected: params['request']} 
         else
+
           @data_set = parse_fitbit(requested_data)
           @data_set[:selected] = params['request']
         end
@@ -25,10 +26,26 @@ class PageController < ApplicationController
   	end
   end
 
-  def summary
+  def about
   end
 
-  def about
+  def demo
+    demo = Demo.first
+    case params['request']
+    when 'calories'
+      @data = {:selected => 'calories',
+              :values => demo.data['calories']}
+    when 'steps'
+      @data = {:selected => 'steps',
+              :values => demo.data['steps']}
+    when 'badges'
+      @data = {:selected => 'badges',
+              :badges => demo.data['badges']}
+    else
+      @data = {:selected => 'calories',
+              :values => demo.data['calories']}
+    end
+    @data
   end
 
   private
@@ -53,6 +70,7 @@ class PageController < ApplicationController
   def handle_graph(param)
     case param
     when 'calories'
+
       data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
     when 'badges'
       data = current_user.fitbit_client.badges

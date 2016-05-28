@@ -1,36 +1,35 @@
-<% if @data_set[:selected] === nil %>
+<% if @data[:selected] === nil %>
 	<% label = 'calories' %>
 <% else  %>
-	<% label = @data_set[:selected] %>
+	<% label = @data[:selected] %>
 <% end %>
 
 <script src="/assets/Chart.js"></script>
 <div class="text-center graphs-page">
 	<div class="btn-group btn-group-justified" role="group" aria-label="...">
-		<%case @data_set[:selected]  %>
+		<%case @data[:selected]  %>
 		<%when 'calories'  %>
-			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button', :class =>"disabled btn btn-info"%>
-			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
-			<%= link_to 'Badges', {:controller => 'page', :action => 'user', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button', :class =>"disabled btn btn-info"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
 		<% when 'badges' %>
-			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
-			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
-			<%= link_to 'Badges', {:controller => 'page', :action => 'user', :request => 'badges'}, :role=>'button',:class =>"disabled btn btn-info"%>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"disabled btn btn-info"%>
 		<% when 'steps' %>
-			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
-			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"disabled btn btn-info"%>
-			<%= link_to 'Badges', {:controller => 'page', :action => 'user', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"disabled btn btn-info"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
 		<% else %>
-			<%= link_to 'Calories', {:controller => 'page', :action => 'user', :request => 'calories'}, :role=>'button',:class =>"disabled btn btn-info"%>
-			<%= link_to 'Steps', {:controller => 'page', :action => 'user',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
-			<%= link_to 'Badges', {:controller => 'page', :action => 'user', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
+			<%= link_to 'Calories', {:controller => 'page', :action => 'demo', :request => 'calories'}, :role=>'button',:class =>"disabled btn btn-info"%>
+			<%= link_to 'Steps', {:controller => 'page', :action => 'demo',:request => 'steps'}, :role=>'button', :class =>"btn btn-primary"%>
+			<%= link_to 'Badges', {:controller => 'page', :action => 'demo', :request => 'badges'}, :role=>'button',:class =>"btn btn-primary"%>
 		<% end %>
 	</div>
-	<%= binding.pry %>
 	<%if label === 'badges' %>
 		<script src="/assets/lightbox.js" type="text/javascript" charset="utf-8" async defer></script>
 		<div class="badges">
-			<% @data_set[:badges]["badges"].each do |badge| %>
+			<% @data[:badges].each do |badge| %>
 				<%= image_tag badge['image100px'], class: 'lightbox-trigger', title: badge['name'], description: badge['description'], last_earned: Date.parse(badge['dateTime']).strftime('%A, %B %e, %Y'), times_achieved: badge['timesAchieved'] %>
 			<% end %>
 		</div>
@@ -52,7 +51,7 @@
 			 ctx.height = 400
 			}
 			var jsLabels = []
-			for (var i = 1; i <= <%= @data_set[:days] %>; i++) {
+			for (var i = 1; i <= 30; i++) {
 				jsLabels.push(i.toString())
 			}
 			var data = {
@@ -77,7 +76,7 @@
 			            pointHoverBorderWidth: 2,
 			            pointRadius: 1,
 			            pointHitRadius: 10,
-			            data: <%= @data_set[:values] %>
+			            data: <%= @data[:values] %>
 			        }
 			    ]
 			};
