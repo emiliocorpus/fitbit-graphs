@@ -1,9 +1,8 @@
 <%if current_user %>
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
-  <% info = JSON.parse(user_info.body) %>
-  <% pic_url = info["user"]["avatar"] %>
-  <% user_name = info["user"]["fullName"] %>
+  <% pic_url = user_info["user"]["avatar"] %>
+  <% user_name = user_info["user"]["fullName"] %>
 <%end %>
 
 <nav class="navbar navbar-inverse" role="navigation">
