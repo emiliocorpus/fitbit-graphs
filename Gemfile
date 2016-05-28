@@ -20,6 +20,10 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'oauth2'
 gem 'rails_12factor'
 gem "pry-rails"
+gem 'binding_of_caller'
+gem "better_errors"
+
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -32,11 +36,9 @@ gem "pry-rails"
 
 group :development, :test do
   gem 'httparty'
-  gem 'binding_of_caller'
   gem "awesome_print", require: "ap"
   gem "meta_request"
   	# for rails panel in chrome dev tools
-  gem "better_errors"
   	# for errors and full stack trace
   	# debugger
   	# use binding.pry in any controller and make rails hit
