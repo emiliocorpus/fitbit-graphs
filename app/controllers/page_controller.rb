@@ -62,6 +62,7 @@ class PageController < ApplicationController
     else
       data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
     end
+
     data
   end
 
@@ -70,8 +71,9 @@ class PageController < ApplicationController
   end
 
   def parse_faraday(response)
+    p "***PARSE FARADAY RESPONSE***"
     p response
-    JSON.parse(response.body)
+    JSON.parse(response)
   end
 end
 
