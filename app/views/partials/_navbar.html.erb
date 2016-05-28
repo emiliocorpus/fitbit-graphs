@@ -29,6 +29,14 @@
           <li>
             <%= link_to "Home", root_path %>
           </li>
+
+          <li>
+            <%= link_to "About", about_path %>
+          </li>
+
+          <li>
+            <%= link_to "Demo", demo_path %>
+          </li>
         
            <% if devise_mapping.omniauthable? && !current_user %>
             <% resource_class.omniauth_providers.each do |provider| %>
@@ -37,10 +45,6 @@
             </li>
               <% end %>
             <% else %>
-            <li>
-              <%= link_to "About", about_path %>
-            </li>
-
             <li>
                 <%= link_to "Logout", destroy_user_session_path, :method => 'delete' %>
           <% end %>
