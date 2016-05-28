@@ -68,7 +68,9 @@ class PageController < ApplicationController
   end
 
   def gather_user_info
-    parse_faraday(current_user.fitbit_client.user_info)
+    # parse_faraday(current_user.fitbit_client.user_info)
+    p "***USER-INFO****"
+    p current_user.fitbit_client.user_info
   end
 
   def parse_faraday(response)
