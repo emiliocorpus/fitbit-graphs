@@ -59,7 +59,7 @@ class PageController < ApplicationController
       data = current_user.fitbit_client.badges
     when 'steps'
       data = current_user.fitbit_client.activity_time_series(resource: 'steps', start_date: Date.today, period: '30d')
-    when nil
+    else
       data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
     end
     data
@@ -70,6 +70,7 @@ class PageController < ApplicationController
   end
 
   def parse_faraday(response)
+    p response
     JSON.parse(response.body)
   end
 end
