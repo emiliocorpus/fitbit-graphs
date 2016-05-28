@@ -19,6 +19,7 @@ gem 'chartkick'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'oauth2'
 gem 'rails_12factor'
+gem "pry-rails"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -37,7 +38,6 @@ group :development, :test do
   	# for rails panel in chrome dev tools
   gem "better_errors"
   	# for errors and full stack trace
-  gem "pry-rails", group: "development"
   	# debugger
   	# use binding.pry in any controller and make rails hit
   	# that controller by visting the page from your browser

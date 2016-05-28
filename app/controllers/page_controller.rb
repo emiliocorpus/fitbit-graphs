@@ -53,6 +53,7 @@ class PageController < ApplicationController
   def handle_graph(param)
     case param
     when 'calories'
+      binding.pry
       data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
     when 'badges'
       data = current_user.fitbit_client.badges
