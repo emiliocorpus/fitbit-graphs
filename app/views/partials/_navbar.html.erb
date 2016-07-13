@@ -2,6 +2,7 @@
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
   <% info = JSON.parse(user_info) %>
+    <% p info %>
     <% if info['user'].has_key?('avatar') && info["user"].has_key?("fullName") %>
       <% binding.pry %>
       <% sign_in_status = true %>
