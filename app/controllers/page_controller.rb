@@ -6,11 +6,6 @@ class PageController < ApplicationController
   	end
   end
 
-  def sign_out 
-    sign_out current_user
-    redirect_to root_path
-  end
-
   def user
   	if current_user && current_user.id === params[:id].to_i
       # requested_data = parse_faraday(handle_graph(params['request']))
