@@ -14,4 +14,7 @@ Rails.application.routes.draw do
 
   get 'demo/' => 'page#demo'
   devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks"}
+
+  delete 'users/sign_out' => 'page#sign_out', as: 'sign_out'
+
 end
