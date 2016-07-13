@@ -8,20 +8,15 @@ class PageController < ApplicationController
 
   def user
   	if current_user && current_user.id === params[:id].to_i
-      requested_data = parse_faraday(handle_graph(params['request']))
-      binding.pry
-      if requested_data.has_key? 'errors' || requested_data === nil
+      requested_data = parse_faraday(gather_requested(params['request']))
+      if requested_data.has_key? 'errors'
         binding.pry
+        puts "%" * 100
+        p requested_data
         sign_out current_user
         redirect_to root_path
       else
-        if params['request'] === 'badges'
-          @data_set = {badges: requested_data, selected: params['request']} 
-        else
-
-          @data_set = parse_fitbit(requested_data)
-          @data_set[:selected] = params['request']
-        end
+        @data_set = handle_display(params['request'], requested_data)
       end
   	else
   		redirect_to root_path
@@ -51,6 +46,17 @@ class PageController < ApplicationController
   end
 
   private
+
+  def handle_display(request, data)
+    if request === 'badges'
+      displayed_data = {badges: data, selected: params['request']} 
+    else
+      displayed_data = parse_fitbit(data)
+      displayed_data[:selected] = params['request']
+    end
+    displayed_data
+  end
+
   def parse_fitbit(data)
     labels = []
     values = []
@@ -69,19 +75,19 @@ class PageController < ApplicationController
     }
   end
 
-  def handle_graph(param)
-    case param
-    when 'calories'
-
-      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
-    when 'badges'
-      data = current_user.fitbit_client.badges
-    when 'steps'
-      data = current_user.fitbit_client.activity_time_series(resource: 'steps', start_date: Date.today, period: '30d')
-    when nil
-      data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+  def gather_requested(data)
+    case data
+      when 'calories'
+        data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
+      when 'badges'
+        data = current_user.fitbit_client.badges
+      when 'steps'
+        data = current_user.fitbit_client.activity_time_series(resource: 'steps', start_date: Date.today, period: '30d')
+      when nil
+        data = current_user.fitbit_client.activity_time_series(resource: 'calories', start_date: Date.today, period: '30d')
     end
-    data
+    puts "*" * 50
+    p data
   end
 
   def gather_user_info
@@ -89,7 +95,8 @@ class PageController < ApplicationController
   end
 
   def parse_faraday(response)
-    JSON.parse(response.body)
+    puts "===="*50
+    p JSON.parse(response.body)
   end
 end
 

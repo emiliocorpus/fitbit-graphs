@@ -2,8 +2,13 @@
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
   <% info = JSON.parse(user_info.body) %>
-  <% pic_url = info["user"]["avatar"] %>
-  <% user_name = info["user"]["fullName"] %>
+    <% if info['user'].has_key?('avatar') && info["user"].has_key?("fullName") %>
+      <% sign_in_status = true %>
+      <% pic_url = info["user"]["avatar"] %>
+      <% user_name = info["user"]["fullName"] %>
+    <% else %>
+      <% sign_in_status = false %>
+    <% end %>    
 <%end %>
 
 <nav class="navbar navbar-inverse" role="navigation">
@@ -22,7 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 
-            <%if current_user %>
+            <%if sign_in_status %>
           <li class="welcome-nav text-center">
             Hello <%= user_name %>! <%= image_tag pic_url, class: 'profile-pic br' %>
           </li>
