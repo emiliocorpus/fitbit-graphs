@@ -1,7 +1,7 @@
 <%if current_user %>
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
-  <% info = JSON.parse(user_info.body) %>
+  <% info = JSON.parse(user_info) %>
     <% if info['user'].has_key?('avatar') && info["user"].has_key?("fullName") %>
       <% sign_in_status = true %>
       <% pic_url = info["user"]["avatar"] %>
