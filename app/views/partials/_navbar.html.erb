@@ -1,9 +1,13 @@
 <%if current_user %>
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
-  <%= user_info %>
-          <% sign_in_status = true %>
-          <% sign_in_status = false %>
+    <% if user_info.has_key?('user') %>
+      <% sign_in_status = true %>
+      <% pic_url = user_info["user"]["avatar"] %>
+      <% user_name = user_info["user"]["fullName"] %>
+    <% else %>
+      <% sign_in_status = false %>
+    <% end %>    
 <%end %>
 
 <nav class="navbar navbar-inverse" role="navigation">
