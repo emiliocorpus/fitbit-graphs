@@ -3,6 +3,7 @@
   <% user_info = client.user_info %>
   <% info = JSON.parse(user_info) %>
     <% if info['user'].has_key?('avatar') && info["user"].has_key?("fullName") %>
+      <% binding.pry %>
       <% sign_in_status = true %>
       <% pic_url = info["user"]["avatar"] %>
       <% user_name = info["user"]["fullName"] %>
