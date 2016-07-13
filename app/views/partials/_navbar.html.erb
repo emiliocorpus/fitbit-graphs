@@ -1,9 +1,9 @@
 <%if current_user %>
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
-  <% info = JSON.parse(user_info) %>
-    <p><%= info.class %></p>
-  
+  <%= user_info %>
+          <% sign_in_status = true %>
+          <% sign_in_status = false %>
 <%end %>
 
 <nav class="navbar navbar-inverse" role="navigation">
