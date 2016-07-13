@@ -1,8 +1,14 @@
 <%if current_user %>
   <% client = current_user.fitbit_client %>
   <% user_info = client.user_info %>
-  <% pic_url = user_info["user"]["avatar"] %>
-  <% user_name = user_info["user"]["fullName"] %>
+  <% info = JSON.parse(user_info.body) %>
+    <% if info['user'].has_key?('avatar') && info["user"].has_key?("fullName") %>
+      <% sign_in_status = true %>
+      <% pic_url = info["user"]["avatar"] %>
+      <% user_name = info["user"]["fullName"] %>
+    <% else %>
+      <% sign_in_status = false %>
+    <% end %>    
 <%end %>
 
 <nav class="navbar navbar-inverse" role="navigation">
@@ -21,7 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
 
-            <%if current_user %>
+            <%if sign_in_status %>
           <li class="welcome-nav text-center">
             Hello <%= user_name %>! <%= image_tag pic_url, class: 'profile-pic br' %>
           </li>
@@ -37,6 +43,7 @@
           <li>
             <%= link_to "Demo", demo_path %>
           </li>
+
         
            <% if devise_mapping.omniauthable? && !current_user %>
             <% resource_class.omniauth_providers.each do |provider| %>
@@ -45,6 +52,7 @@
             </li>
               <% end %>
             <% else %>
+            
             <li>
                 <%= link_to "Logout", destroy_user_session_path, :method => 'delete' %>
           <% end %>
