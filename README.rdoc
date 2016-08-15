@@ -1,28 +1,4 @@
-== README
+== FITBITGRAPHS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[FitbitGraphs](http://www.fitbitgraphs.co/) is a Ruby on Rails application that utilizes the [FitbitAPI](https://dev.fitbit.com/) to gather and display certain Fitbit data. It was mainly constructed to better understand how to integrate APIs into a Ruby on Rails application with Oauth2. The application is currently read-only and only accesses (if authorized by the user) calories burend, steps taken, and badges earned. Other technologies used include Charts.js and JQuery.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
